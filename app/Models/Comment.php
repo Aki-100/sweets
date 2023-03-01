@@ -1,0 +1,23 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Comment extends Model
+{
+    use HasFactory;
+    
+    //Userに対するリレーション
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    
+    //Sweetに対するリレーション
+    public function sweet()
+    {
+        return $this->belongsTo(Sweet::class);
+    }
+}

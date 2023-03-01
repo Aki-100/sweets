@@ -155,7 +155,8 @@ return [
     */
 
     'providers' => [
-
+        
+        CloudinaryLabs\CloudinaryLaravel\CloudinaryServiceProvider::class,//追加
         /*
          * Laravel Framework Service Providers...
          */
@@ -185,7 +186,7 @@ return [
         /*
          * Package Service Providers...
          */
-
+        
         /*
          * Application Service Providers...
          */
