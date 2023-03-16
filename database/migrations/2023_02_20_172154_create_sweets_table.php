@@ -23,7 +23,7 @@ return new class extends Migration
             //'prefecture_id'は'prefecturesテーブル'の'id'を参照する外部キー
             $table->string('name');
             $table->text('description');
-            $table->string('image_url');        
+            $table->string('image_url')->nullable();        
             $table->timestamps();
             $table->softDeletes();
         });

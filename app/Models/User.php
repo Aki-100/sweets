@@ -45,14 +45,25 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
     
-    //Sweetに対するリレーション
     public function sweets()
+    //Sweetに対するリレーション
     {
         return $this->hasMany(Sweet::class);
     }
     
-    //Commentに対するリレーション
+    public function likes()
+    //Likeに対するリレーション
+    {
+        return $this->hasMany(Like::class);
+    }
+    
+    public function islike($id)
+    {
+        return $this->likes()->where('sweet_id', $id)->exists();
+    }
+    
     public function comments()
+    //Commentに対するリレーション
     {
         return $this->hasMany(Comment::class);
     }

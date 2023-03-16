@@ -1,6 +1,8 @@
 <x-app-layout>
     <x-slot name="header">
-        Find Japanese regional sweets！
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Find Japanese regional sweets！') }}
+        </h2>
     </x-slot>
     <!DOCTYPE html>
     <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
@@ -11,36 +13,46 @@
         <link rel="stylesheet" href="/css/stylesheet.css">        
     </head>
         <body>
-            <div class="prefecture">
+            <div class="home">
+                {{--検索機能ここから--}}
+                <div>
+                    <form method="GET" action="{{ route('home') }}" class="d-flex">
+                        <input class="form-control me-2" name="search" type="search" placeholder="Name of sweet" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>        
+                </div>
+        
                 {{--投稿画面へのリンク--}}
                 <a href='/sweets/create'>register sweet</a>
                 {{--タイムライン表示ここから--}}
                 <div class='sweets'>
                     @foreach ($sweets as $sweet)
                         <div class='sweet'>
-                            <div class='name'>
-                            <p>＜Name of sweet＞</p>
-                            <p class='name'><a href="/sweets/{{ $sweet->id }}">{{ $sweet->name }}</a></p>
-                            </div>
+                            <h2 class='name'>
+                                ＜Name of sweet＞
+                                <p><a href="/sweets/{{ $sweet->id }}">{{ $sweet->name }}</a></p>
+                            </h2>
                             {{--画像表示ここから--}}
                             @if($sweet->image_url)
-                                <div class="image">
-                                    <h1>＜Image＞</h1>
-                                    <img src="{{ $sweet->image_url }}" alt="Image can't load."/>
-                                </div>
+                            <div class="image">
+                                <h1>＜Image＞</h1><br>
+                                <img src="{{ $sweet->image_url }}" alt="Image can't load."/>
+                            </div>
                             @endif
-                            <div class='description'>＜Description＞</div>
-                            <p class='description'>{{ $sweet->description }}</p>
+                            <div class='description'>
+                                ＜Description＞
+                                <p class='content__sweet'>{{ $sweet->description }}</p>
+                            </div>
                             {{--Sweetインスタンスのプロパティとして地域名、都道府県名を参照--}}
                             <div class='region'>
-                                <p>＜Region＞</Region></p>
+                                <h2>＜Region＞</h2>
                                 <a href="/regions/{{ $sweet->region->id }}">{{ $sweet->region->name }}</a>
                             </div>
                             <div class='Prefecture'>
-                                <p>＜Prefecture＞</p>
+                                <h2>＜Prefecture＞</h2>
                             <a href="/prefectures/{{ $sweet->prefecture->id }}">{{ $sweet->prefecture->name }}</a>
                             </div>
-
+                            
                             {{--いいねボタンここから--}}
                             <span>
                                 <img src="{{ asset('images/likebutton.png') }}" width="30px">
@@ -66,6 +78,7 @@
                                     </a>
                                 @endif
                             </span>
+                            
                             {{--投稿削除機能表示ここから--}}
                             <form action="/sweets/{{ $sweet->id }}" id="form_{{ $sweet->id }}" method="post">
                                 @csrf
@@ -75,15 +88,19 @@
                         </div>
                     @endforeach
                 </div>
-                <div class='error'>
                 {{--ペジネーションここから--}}
                 <div class='paginate'>
                     {{ $sweets->links() }}
                 </div>
-                <div class="footer">
-                    <a href="/home">Back</a>
-                </div>
             </div>
+            <script>
+                function deleteSweet(id) {
+                    'use strict'
+                    if (confirm('Once deleted, it cannot be recovered. \nDo you really want to delete this?')){
+                        document.getElementById(`form_${id}`).submit();
+                    }
+                }
+            </script>   
         </body>
     </html>
-</x-app-layout>
+    </x-app-layout>

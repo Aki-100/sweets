@@ -16,7 +16,7 @@ class Region extends Model
     }
     
     public function getByRegion(int $limit_count = 5)
-    //Regionごとに属する投稿を取得
+    //Regionごとに属する投稿を5件まで取得
     {
         return $this->sweets()->with('region')->orderBy('updated_at', 'DESC')->paginate($limit_count);
         //Sweets関数を参照し、その中のSweetモデル内のregion関数から取得した投稿を降順に並べて取得

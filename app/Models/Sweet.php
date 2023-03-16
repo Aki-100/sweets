@@ -27,7 +27,13 @@ class Sweet extends Model
     {
         return $this->belongsTo(User::class);
     }
-
+    
+    public function likes()
+    //Likeに対するリレーション
+    {
+        return $this->hasMany(Like::class);
+    }
+    
     public function comments()
     //Commentに対するリレーション
     {
@@ -48,7 +54,7 @@ class Sweet extends Model
 
 
     public function getPaginateByLimit(int $limit_count = 5)
-    //取得データの最大件数を15件に指定
+    //取得データの最大件数を5件に指定
     {
         return $this::with('region','prefecture')->orderBy('updated_at','DESC')->paginate($limit_count);
         //region関数とprefecture関数を参照し、最新の更新から順に取得

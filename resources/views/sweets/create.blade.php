@@ -7,10 +7,11 @@
     <head>
         <meta charset="utf-8">
         <title>Sweets</title>
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+        <!--cssの読み込み-->
+        <link rel="stylesheet" href="/css/stylesheet.css">        
     </head>
         <body>
+            <div class="create">
             {{--投稿機能ここから--}}
             <form action="/sweets" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -52,9 +53,6 @@
             <div class="footer">
                 <a href="/">Back</a>
             </div>
-            {{--ユーザー名の表示ここから--}}
-            <div class='username'>
-                {{ Auth::user()->name}}
             </div>
         </body>
     </html>

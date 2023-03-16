@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SweetController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\PrefectureController;
+use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,12 +20,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('top');
+})->name('top');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/home', [SweetController::class, 'ranking'])->middleware(['auth', 'verified'])->name('home');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -50,17 +50,54 @@ Route::get('/sweets/{sweet}', [SweetController::class ,'show'])->name('show');
 //'/sweets/{対象のデータID}'にGetリクエストが来たら、SweetControllerのshowメソッドを実行
 //showという名前付きルートを設定
 
-Route::get('/sweets/{sweet}/edit', [SweetController::class, 'edit']);
+Route::get('/sweets/{sweet}/edit', [SweetController::class, 'edit'])->name('edit');
 //'/sweets/{対象のデータID}/edit'にGetリクエストが来たら、SweetControllerのeditメソッドを実行
+//editという名前付きルートを設定
 
-Route::put('/sweets/{sweet}', [SweetController::class, 'update']);
+Route::put('/sweets/{sweet}', [SweetController::class, 'update'])->name('update');
 //'/sweets/{対象のデータID}'にPutリクエストが来たら、SweetControllerのupdateメソッドを実行
+//updateという名前付きルートを設定
 
-Route::delete('/sweets/{sweet}', [SweetController::class, 'delete']);
+Route::delete('/sweets/{sweet}', [SweetController::class, 'delete'])->name('delete');
 //'/sweets/{対象のデータID}'にDeleteリクエストが来たら、SweetControllerのdeleteメソッドを実行
+//deleteという名前付きルートを設定
 
-Route::get('/regions/{region}', [RegionController::class,'index']);
+Route::get('/like/{sweet}', [LikeController::class,'like'])->name('likes');
+//'/like/{対象のデータID}'にGetリクエストが来たら、LikeControllerのstoreメソッドを実行
+//likesという名前付きルートを設定
+
+Route::get('/unlike/{sweet}', [LikeController::class, 'unlike'])->name('unlikes');
+//'/unlike/{対象のデータID}'にGetリクエストが来たら、LikeControllerのdestroyメソッドを実行
+//unlikesという名前付きルートを設定
+
+Route::get('/regions/{region}', [RegionController::class,'index'])->name('region_index');
 //'/regions/{対象のデータID}'にGetリクエストが来たら、RegionControllerのindexメソッドを実行
 
-Route::get('/prefectures/{prefecture}', [PrefectureController::class,'index']);
+Route::get('/prefectures/{prefecture}', [PrefectureController::class,'index'])->name('prefecture_index');
 //'/prefectures/{対象のデータID}'にGetリクエストが来たら、PrefectureControllerのindexメソッドを実行
+
+
+Route::get('/comments', [CommentController::class,'index'])->name('comment_index');
+//CommentControllerの'index0'メソッドを使用
+//'comment_index0'という名前付きルートを設定
+
+Route::get('/comments/create', [CommentController::class, 'create'])->name('comment_create');
+//CommentControllerの'create'メソッドを使用
+//'comment_create'という名前付きルートを設定
+
+Route::post('/comments', [CommentController::class, 'store'])->name('comment_store');
+//CommentControllerの'store'メソッドを使用した保存処理
+//'comment_store'という名前付きルートを設定
+
+Route::delete('/comments/{comment}', [CommentController::class,'delete']);
+//'/comments/{対象のデータID}'にDeleteリクエストが来たら、CommentControllerのdeleteメソッドを実行
+
+
+Route::get('/regions', [RegionController::class,'index0'])->name('region_index0');
+//RegionControllerの'index0'メソッドを使用
+//'region_index0'という名前付きルートを設定
+
+
+Route::get('/prefectures', [PrefectureController::class,'index0'])->name('prefecture_index0');
+//PrefectureControllerの'index0'メソッドを使用
+//'prefecture_index0'という名前付きルートを設定

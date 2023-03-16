@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreignId('sweet_id')->constrained();
             //'sweet_id'は'sweetsテーブルの'id'を参照する外部キー
             $table->string('comment',250);
-            $table->string('image_url');
+            $table->string('image_url')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
