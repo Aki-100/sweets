@@ -1,0 +1,16 @@
+/*logo表示ここから*/
+h1{
+    float:  left;
+    padding: 5px 0;
+}
+
+    h1 a {
+        display:  block;
+        width: 65px;
+        height: 52px;
+        font-size: 0;
+        background: url(./images/Japanese_sweets_logo.jpeg) left top/64px auto no-repeat;
+    }
+
+    
+    
