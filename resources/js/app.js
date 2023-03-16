@@ -6,4 +6,4 @@ window.Alpine = Alpine;
 
 Alpine.start();
 
-require('./ajaxlike.js')
+require('./ajaxlike.js');
