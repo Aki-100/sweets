@@ -11,5 +11,13 @@
         "lodash": "^4.17.19",
         "postcss": "^8.1.14",
         "vite": "^3.0.0"
+    },
+    {
+      "name": "example-app",
+      "description": "a really cool app",
+      "version": "1.0.0",
+      "engines": {
+      "node": "18.x"
     }
+    
 }
