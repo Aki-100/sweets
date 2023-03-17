@@ -5,6 +5,10 @@
         "build": "vite build",
         "heroku-postbuild": "npm run build"
     },
+    "engines":{
+        "node":"16.x",
+        "npm": "7.x"
+    },
     "devDependencies": {
         "axios": "^1.1.2",
         "laravel-vite-plugin": "^0.7.0",
